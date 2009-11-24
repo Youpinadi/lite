@@ -2,324 +2,55 @@
 <html>
 <head>
     <title>Welcome to Dailymotion Lite</title>
-    <style>
-        body
-        {
-            font-family: Tahoma,'Trebuchet MS',Verdana,Arial,Sans-serif;
-            margin: 0px;
-            background-image: url('http://img.skitch.com/20091101-8qhwtn23dfuy9hwie8gq1gsbg8.jpg');
-            background-repeat: no-repeat;
-            background-position: top  center;
-            background-color: #00204E;
-            color: #FFF;
-            text-align: center;
-            font-size: 12px;
-        }
-        header
-        {
-            z-index: 3;
-            position: fixed;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 6px;
-            padding-top: 12px;
-            height: 36px;
-            display: block;
-            margin-bottom: 12px;
-            text-align: left;
-            font-size: 16px;
-        }
-        
-        header form
-        {
-            float: right;
-            margin-right: 24px;
-        }
-
-
-        header #search
-        {
-            -moz-border-radius: 4px 0px 0px 4px;
-            border: 1px solid #333;
-            padding: 3px;
-            border-right: none;
-            font-size: 16px;
-        }
-        header #submit
-        {
-            -moz-border-radius: 0px 4px 4px 0px;
-            border: 1px solid #333;
-            padding: 2px;
-            border-left: none;
-            font-size: 16px;
-        }
-
-        nav a
-        {
-            display: inline-block;
-            background: #222 url(/images/alert-overlay.png) repeat-x;
-            display: inline-block;
-            padding: 5px 10px 6px;
-            color: #fff;
-            text-decoration: none;
-            font-weight: bold;
-            line-height: 1;
-            -moz-border-radius: 12px;
-            -webkit-border-radius: 12px;
-           -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-           -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-           text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
-           border-bottom: 1px solid rgba(0,0,0,0.25);
-            position: relative;
-            cursor: pointer;
-        }
-        
-        nav a .delete
-        {
-            float: right;
-            margin-top: 4px;
-            margin-left: 3px;
-            background-image: url('http://www.dailymotion.com/images/delete_icon.png');
-            height: 16px;
-            width: 16px;
-        }
-        
-        nav a:hover,
-        nav a.selected
-        {
-            color: #555;
-            background-color: #FFF;
-        }
-
-        
-        .video_item
-        {
-            position: relative;
-            display: inline-block;
-            margin: 10px;
-            border: 1px solid #CCC;
-            background-color: #FFF;
-            padding: 4px;
-            width: 80px;
-            font-size: 11px;
-            height: 60px;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        
-        .video_item
-        {
-            width: 90%;
-            -moz-border-radius: 8px;
-            text-align: left;
-            border: none;
-            font-size: 14px;
-            margin-bottom: 6px;
-            padding: 6px;
-            background-color: rgba(50, 50, 50, 0.5);
-        }
-        
-        
-        .video_item .title
-        {
-            position: absolute;
-            text-transform: lowercase;
-            color: #FFF;
-            padding: 2px;
-            bottom: 4px;
-            left: 100px;
-            right: 4px;
-            top: 6px;
-            max-height: 30px;
-        }
-        
-        #results_container,
-        #player_container
-        {
-            text-align: center;
-            background-color: rgba(0, 0, 0, 0.5);
-            -moz-border-radius: 8px;
-            margin-left: 12px;
-            min-height: 450px;
-        }
-        
-        #results_container
-        {
-            width: 25%;
-            height: 100%;
-            overflow: auto;
-        }
-
-        #player_container
-        {
-            position: fixed;
-            top: 80px;
-            width: 72%;
-        }
-        
-        object
-        {
-            margin-top: 20px;
-            display: inline-block;
-            width: 95% !important;
-            height: 95% !important;
-        }
-        object embed
-        {
-            width: 100% !important;
-        }
-        
-
-        #results_container
-        {
-            margin-top: 80px;
-            float: right;
-        }
-        #player_container
-        {
-            float: left;
-            margin-right: 12px;
-        }
-        
-    </style>
     
-    <script type="text/javascript" charset="utf-8" src="/js/lib/swfobject.js"></script>
     <script type="text/javascript" charset="utf-8" src="http://jqueryjs.googlecode.com/files/jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/swfobject/swfobject.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/lite.js"></script>
+    
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" title="no title" charset="utf-8">
 
+    <link rel="shortcut icon" type="image/x-icon" href="http://www.veryicon.com/icon/preview/Application/Database%20Filter/Filter%20Feather%20Disabled%20Icon.jpg" />
+    
+    
     <script type="text/html" id="video_tmpl">
         <div class="video_item" id="<%=video_id%>">
             <img src="<%=thumbnail_small_url%>"/>
             <div class="title"><%=title%></div>
         </div>
     </script>
-
-    <script type="text/javascript" charset="utf-8">
-        
-        // Simple JavaScript Templating
-        // John Resig - http://ejohn.org/ - MIT Licensed
-        (function(){
-          var cache = {};
-
-          this.tmpl = function tmpl(str, data){
-            // Figure out if we're getting a template, or if we need to
-            // load the template - and be sure to cache the result.
-            var fn = !/\W/.test(str) ?
-              cache[str] = cache[str] ||
-                tmpl(document.getElementById(str).innerHTML) :
-
-              // Generate a reusable function that will serve as a template
-              // generator (and which will be cached).
-              new Function("obj",
-                "var p=[],print=function(){p.push.apply(p,arguments);};" +
-
-                // Introduce the data as local variables using with(){}
-                "with(obj){p.push('" +
-
-                // Convert the template into pure JavaScript
-                str
-                  .replace(/[\r\t\n]/g, " ")
-                  .split("<%").join("\t")
-                  .replace(/((^|%>)[^\t]*)'/g, "$1\r")
-                  .replace(/\t=(.*?)%>/g, "',$1,'")
-                  .split("\t").join("');")
-                  .split("%>").join("p.push('")
-                  .split("\r").join("\\'")
-              + "');}return p.join('');");
-
-            // Provide some basic currying to the user
-            return data ? fn( data ) : fn;
-          };
-        })();
-
-
-        function displayResults(videos)
-        {
-            $('#results').fadeIn('slow');
-            var res = '';
-            if (videos.length == 0)
-            {
-                res = 'No videos found';
-            }
-            else
-            {
-                for (i in videos)
-                {
-                    res += tmpl("video_tmpl", videos[i]);
-                }
-            }
-            $('#results').html(res);
-            $('.video_item').click(function(){
-               player.loadVideoById($(this).attr('id'), 0); 
-            });
-        }
-        
-        function search()
-        {
-            var req = '/search/' + $('#search').val() + '/1:30';
-            request(req);
-            $('nav').append('<a href="' + req + '">search: ' + $('#search').val() + '<span class="delete"></span></a>');
-            $('nav a:last').hide().fadeIn().addClass('selected');
-            initNav(); 
-        }
-
-        function request(req)
-        {
-            $('#results').fadeOut('fast');
-            var req = 'http://www.dailymotion.com/json' + req + '?callback=displayResults&fields=title,thumbnail_small_url,video_id';
-            $('#results').append('<scri' + 'pt src="' + req + '"></scri' + 'pt>');
-        }
-        
-        var player;
-        function onDailymotionPlayerReady()
-        {
-            player = $('embed').get(0);
-        };
-
-        function initNav()
-        {
-            $('nav a').click(function(){
-                $('nav a').removeClass('selected');
-                $(this).addClass('selected');
-                request($(this).attr('href'));
-                return false;
-            }).find('.delete').click(function(){ $(this).parent().fadeOut('fast'); return false});
-        }
-
-        $(document).ready(function () {
-            $('#search_form').submit(function(){
-                $('nav a').removeClass('selected');
-                search();
-                return false;
-            });
-            initNav(); 
-            request('/buzz/1:30');
-        });
-        
-    </script>
 </head>
 <body>
 
 <header class="header">
-    <nav>
+    <nav id="tabs">
+        <a id="videos" class="selected">Our selection</a>
+        <a id="recent_searches">Recent searches</a>
+        <a id="history">History</a>
+    </nav>
+    <div id="colors">
+        <span class="red" title="change to red"></span>
+        <span class="green" title="change to green"></span>
+        <span class="violet" title="change to violet"></span>
+        <span class="blue" title="change to blue"></span>
+    </div>
+    <form id="search_form">
+        <input type="text" value="search" name="search" id="search"/><input type="submit" id="submit"/>
+    </form>
+
+    <nav id="buttons">
         <a href="/buzz/1" class="selected">buzz</a>
         <a href="/visited-month/hd/tag/trailer/1:30">hd trailers</a>
         <a href="/visited-month/user/edbangerrecords/1:30">music</a>
         <a href="/visited-week/channel/fun/1:30">fun</a>
         <a href="/visited-today/channel/sexy/1:30">sexy</a>
     </nav>
-    <form id="search_form">
-        <input type="text" value="search" name="search" id="search"/><input type="submit" id="submit"/>
-    </form>
 </header>
 
+
 <div id="player_container">
-    <object width="480" height="365">
-        <param name="movie" value="http://www.dailymotion.com/swf/xalcj4&related=0&enableJsApi=1"></param>
-        <param name="allowFullScreen" value="true"></param>
-        <param name="allowScriptAccess" value="always"></param>
-        <embed src="http://www.dailymotion.com/swf/xalcj4&related=0&enableJsApi=1" type="application/x-shockwave-flash" width="480" height="365" allowfullscreen="true" allowscriptaccess="always"/>
-    </object>
+    <div id="video_player"></div>
 </div>
+
 <div id="results_container">
     <div id="results"/>
 </div>

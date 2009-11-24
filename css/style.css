@@ -1,0 +1,224 @@
+body
+{
+    font-family: Tahoma,'Trebuchet MS',Verdana,Arial,Sans-serif;
+    margin: 0px;
+    background-repeat: no-repeat;
+    background-position: top  center;
+    background-color: #000000;
+    color: #FFF;
+    text-align: center;
+    font-size: 12px;
+}
+header
+{
+    z-index: 3;
+    position: fixed;
+    width: 100%;
+    background-color: #000;
+    display: block;
+    margin-bottom: 12px;
+    text-align: left;
+    font-size: 12px;
+}
+
+header #colors
+{
+    display: inline-block;
+}
+
+header #colors span
+{
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin-right: 6px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    background-color: #CE1212;
+    cursor: pointer;
+}
+
+header #colors span.green
+{
+    background-color: #C3ED80;
+}
+
+header #colors span.blue
+{
+    background-color: #1D6BBF;
+}
+
+header #colors span.violet
+{
+    background-color: #EC1F9E;
+}
+
+
+
+header form
+{
+    float: right;
+    margin-right: 6px;
+    margin-top: 8px;
+}
+
+
+header #search
+{
+    -moz-border-radius: 3px 0px 0px 3px;
+    border: 1px solid #333;
+    padding: 3px;
+    border-right: none;
+}
+header #submit
+{
+    -moz-border-radius: 0px 3px 3px 0px;
+    border: 1px solid #333;
+    padding: 2px;
+    border-left: none;
+}
+
+nav a
+{
+    text-decoration: none;
+    outline: none;
+}
+
+nav#tabs
+{
+    display: inline-block;
+    padding: 6px 6px 0px 6px;
+}
+
+nav#tabs a
+{
+    display: inline-block;
+    -moz-border-radius: 6px 6px 0px 0px;
+    color: #FFF;
+    padding: 8px;
+    margin-right: 10px;
+}
+
+nav#tabs a.selected
+{
+    background-color: #CE1212;
+    font-weight: bold;
+    color: #FFF;
+}
+
+
+nav#buttons
+{
+    display: block;
+    background-color: #CE1212;
+    padding: 6px;
+}
+nav#buttons a
+{
+    display: inline-block;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #FFF;
+    padding: 5px;
+    margin-right: 10px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+
+nav#buttons a .delete
+{
+    float: right;
+    margin-left: 3px;
+    background-image: url('http://www.dailymotion.com/images/delete_icon.png');
+    height: 16px;
+    width: 16px;
+}
+
+nav#buttons a:hover,
+nav#buttons a.selected
+{
+    color: #555;
+    background-color: #FFF;
+    color: #CE1212;
+    font-weight: bold;
+}
+
+
+.video_item
+{
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+    border: 1px solid #CCC;
+    background-color: #FFF;
+    padding: 4px;
+    width: 80px;
+    font-size: 11px;
+    height: 60px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.video_item
+{
+    width: 90%;
+    -moz-border-radius: 3px;
+    text-align: left;
+    border: none;
+    font-size: 14px;
+    margin-bottom: 6px;
+    padding: 6px;
+    background-color: rgba(50, 50, 50, 0.5);
+}
+
+
+.video_item .title
+{
+    position: absolute;
+    text-transform: lowercase;
+    color: #FFF;
+    padding: 2px;
+    bottom: 4px;
+    left: 100px;
+    right: 4px;
+    top: 6px;
+    max-height: 30px;
+}
+
+#results_container,
+#player_container
+{
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    -moz-border-radius: 8px;
+    margin-left: 12px;
+    min-height: 450px;
+}
+
+#results_container
+{
+    width: 25%;
+    height: 100%;
+    overflow: auto;
+}
+
+#player_container
+{
+    position: fixed;
+    top: 100px;
+    width: 72%;
+    float: left;
+    margin-right: 12px;
+}
+
+#video_player
+{
+    outline: none;
+    width: 100% !important;
+    height: 400px;
+}
+
+#results_container
+{
+    margin-top: 80px;
+    float: right;
+}
