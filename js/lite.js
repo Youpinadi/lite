@@ -95,7 +95,7 @@ Lite =
     request: function(req)
     {
         $('#results').fadeOut('fast');
-        var req = 'http://www.dailymotion.com/json' + req + '?callback=Lite.displayResults&fields=title,thumbnail_small_url,video_id';
+        var req = 'http://www.dailymotion.com/json' + req + '?callback=Lite.displayResults&fields=title,views_total,thumbnail_small_url,video_id';
         $('#results').append('<scri' + 'pt src="' + req + '"></scri' + 'pt>');
         Lite.applyColors();
     },

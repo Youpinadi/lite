@@ -178,20 +178,16 @@ nav#buttons a.selected
     height: 60px;
     overflow: hidden;
     cursor: pointer;
-}
-
-.video_item
-{
     width: 90%;
-    -moz-border-radius: 3px;
+    -moz-border-radius: 3px 0px 0px 3px;
     text-align: left;
     border: none;
     font-size: 14px;
     margin-bottom: 6px;
+    margin-right: 0px;
     padding: 6px;
     background-color: rgba(50, 50, 50, 0.5);
 }
-
 
 .video_item .title
 {
@@ -199,12 +195,21 @@ nav#buttons a.selected
     text-transform: lowercase;
     color: #FFF;
     padding: 2px;
-    bottom: 4px;
     left: 100px;
     right: 4px;
     top: 6px;
     max-height: 30px;
 }
+.video_item .views
+{
+    font-size: 10px;
+    position: absolute;
+    color: #555;
+    padding: 2px;
+    bottom: 4px;
+    right: 4px;
+}
+
 
 #results_container,
 #player_container
