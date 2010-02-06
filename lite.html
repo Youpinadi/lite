@@ -18,31 +18,38 @@
             <div class="title"><%=title%></div>
         </div>
     </script>
+    <style id="skin">
+        
+    </style>
 </head>
 <body>
 
 <header class="header">
     <nav id="tabs">
-        <a id="videos" class="selected">Our selection</a>
-        <a id="recent_searches">Recent searches</a>
+        <a id="selection" class="selected">Our selection</a>
+        <a id="searches">Recent searches</a>
         <a id="history">History</a>
     </nav>
     <div id="colors">
-        <span class="red" title="change to red"></span>
-        <span class="green" title="change to green"></span>
-        <span class="violet" title="change to violet"></span>
-        <span class="blue" title="change to blue"></span>
+        <span class="selected" title="change to red" style="background-color: #CE1212"></span>
+        <span title="change to green" style="background-color: #243F17"></span>
+        <span title="change to violet" style="background-color: #EC1F9E"></span>
+        <span title="change to blue" style="background-color: #1D6BBF"></span>
     </div>
     <form id="search_form">
         <input type="text" value="search" name="search" id="search"/><input type="submit" id="submit"/>
     </form>
 
-    <nav id="buttons">
-        <a href="/buzz/1" class="selected">buzz</a>
-        <a href="/visited-month/hd/tag/trailer/1:30">hd trailers</a>
-        <a href="/visited-month/user/edbangerrecords/1:30">music</a>
-        <a href="/visited-week/channel/fun/1:30">fun</a>
-        <a href="/visited-today/channel/sexy/1:30">sexy</a>
+    <nav id="buttons" class="background">
+        <div id="nav_selection" class="current_context">
+            <a href="/buzz/1" class="selected" class="context">buzz</a>
+            <a href="/visited-month/hd/tag/trailer/1:30" class="context">hd trailers</a>
+            <a href="/visited-month/user/edbangerrecords/1:30" class="context">music</a>
+            <a href="/visited-week/channel/fun/1:30" class="context">fun</a>
+            <a href="/visited-today/channel/sexy/1:30" class="context">sexy</a>
+        </div>
+        <div id="nav_searches">no recent search</div>
+        <div id="nav_history">no video in your history</div>
     </nav>
 </header>
 

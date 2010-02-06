@@ -29,12 +29,20 @@ header #colors
 header #colors span
 {
     display: inline-block;
-    width: 6px;
-    height: 6px;
-    margin-right: 6px;
-    -moz-border-radius: 3px 3px 3px 3px;
+    width: 12px;
+    height: 12px;
+    margin-right: 12px;
+    -moz-border-radius: 6px 6px 6px 6px;
     background-color: #CE1212;
     cursor: pointer;
+}
+
+header #colors span.selected
+{
+    width: 16px;
+    height: 16px;
+    margin-right: 12px;
+    -moz-border-radius: 8px 8px 8px 8px;
 }
 
 header #colors span.green
@@ -92,6 +100,7 @@ nav#tabs
 nav#tabs a
 {
     display: inline-block;
+    cursor: pointer;
     -moz-border-radius: 6px 6px 0px 0px;
     color: #FFF;
     padding: 8px;
@@ -100,7 +109,6 @@ nav#tabs a
 
 nav#tabs a.selected
 {
-    background-color: #CE1212;
     font-weight: bold;
     color: #FFF;
 }
@@ -109,9 +117,27 @@ nav#tabs a.selected
 nav#buttons
 {
     display: block;
-    background-color: #CE1212;
-    padding: 6px;
+    position: relative;
+    height: 38px;
+    overflow: hidden;
 }
+nav#buttons div
+{
+    position: absolute;
+    top: -38px;
+    left: 0px;
+    padding: 6px;
+    height: 26px;
+    padding-left: 8px;
+    display: inline-block;
+}
+
+nav#buttons .current_context
+{
+    top: 0px;
+}
+
+
 nav#buttons a
 {
     display: inline-block;
@@ -133,12 +159,8 @@ nav#buttons a .delete
     width: 16px;
 }
 
-nav#buttons a:hover,
 nav#buttons a.selected
 {
-    color: #555;
-    background-color: #FFF;
-    color: #CE1212;
     font-weight: bold;
 }
 
@@ -188,7 +210,6 @@ nav#buttons a.selected
 #player_container
 {
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.5);
     -moz-border-radius: 8px;
     margin-left: 12px;
     min-height: 450px;
@@ -208,6 +229,7 @@ nav#buttons a.selected
     width: 72%;
     float: left;
     margin-right: 12px;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 #video_player
