@@ -70,6 +70,7 @@ Lite =
         });
 
         Lite.initNav();
+        Lite.applyColors();
     },
     search: function()
     {
@@ -151,6 +152,9 @@ Lite =
             .css('backgroundColor', Lite.foregroundColor)
             .css('color', Lite.currentColor);
 
+        $('.video_item .title')
+            .css('color', Lite.currentColor);
+
         $('.background').css('backgroundColor', Lite.currentColor);
 
         $('#buttons a').hover(
@@ -225,7 +229,8 @@ Lite =
             $('#history').attr('href', '#/vids/' + Lite.historyVideos.join('+'));
             $('#nav_history').html(Lite.historyVideos.length + ' videos in your history | clear history');
         }
-        else
+        
+        if(Lite.historyVideos.length == 0)
         {
             $('#nav_history').html('Your viewing history is empty');
         }
@@ -255,16 +260,19 @@ Lite =
             var el = $(event.target);
         }
 
-        Lite.currentColor = el.css('backgroundColor');
+        if (el.css('backgroundColor') != 'transparent')
+        {
+            Lite.currentColor = el.css('backgroundColor');
 
-        var date = new Date();
-        date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
-        $.cookie('lastSelectedColor', el.attr('id'), { path: '/', expires: date });
+            var date = new Date();
+            date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
+            $.cookie('lastSelectedColor', el.attr('id'), { path: '/', expires: date });
 
-        $('#colors span').removeClass('selected');
-        $(el).addClass('selected');
-        $('.background').css('backgroundColor', Lite.currentColor);
-        Lite.applyColors();
+            $('#colors span').removeClass('selected');
+            $(el).addClass('selected');
+            $('.background').css('backgroundColor', Lite.currentColor);
+            Lite.applyColors();
+        }
     },
     initialize: function()
     {
@@ -281,7 +289,6 @@ Lite =
             }
             Lite.currentColor = $('#colors span.selected').css('backgroundColor');
 
-            Lite.applyColors();
             $('#colors span').click(Lite.switchColors);
 
             $('#colors').hide();
@@ -310,6 +317,7 @@ Lite =
             });
             Lite.initNav();
             Lite.request('/buzz/1:30');
+            Lite.applyColors();
         });
     }
 };

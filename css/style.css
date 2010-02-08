@@ -81,7 +81,7 @@ header #search
 {
     border-radius: 3px 0px 0px 3px;
     -moz-border-radius: 3px 0px 0px 3px;
-    border: 1px solid #333;
+    border: 1px solid rgba(0, 0, 0, 0.5);
     padding: 3px;
     border-right: none;
 }
@@ -89,7 +89,7 @@ header #submit
 {
     border-radius: 0px 3px 3px 0px;
     -moz-border-radius: 0px 3px 3px 0px;
-    border: 1px solid #333;
+    border: 1px solid rgba(0, 0, 0, 0.5);
     padding: 2px;
     border-left: none;
 }
@@ -189,23 +189,23 @@ nav#buttons a.selected
     display: inline-block;
     border: 1px solid #CCC;
     font-size: 11px;
-    height: 72px;
+    width: 266px;
+    height: 78px;
     overflow: hidden;
     cursor: pointer;
-    width: 100%;
-    border-radius: 3px 0px 0px 3px;
-    -moz-border-radius: 3px 0px 0px 3px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
     text-align: left;
     border: none;
     font-size: 14px;
     margin-bottom: 6px;
-    margin-right: 0px;
-    background-color: rgba(50, 50, 50, 0.8);
+    border: 1px solid rgba(200, 200, 200, 0.15);
+    background-color: rgba(122, 122, 122, 0.2);
 }
 
 .video_item img
 {
-    margin: 6px;
+    margin: 10px;
 }
 
 .video_item .title
@@ -256,7 +256,7 @@ nav#buttons a.selected
 #results_container
 {
     width: 25%;
-    height: 100%;
+    min-height: 1000px;
     overflow: auto;
 }
 
