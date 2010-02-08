@@ -126,6 +126,8 @@ nav#tabs a.selected
 
 #sub
 {
+    float: left;
+    width: 100%;
     height: 38px;
     overflow: hidden;
 }
