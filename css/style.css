@@ -32,7 +32,8 @@ header #colors span
     width: 12px;
     height: 12px;
     margin-right: 12px;
-    -moz-border-radius: 6px 6px 6px 6px;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
     background-color: #CE1212;
     cursor: pointer;
 }
@@ -42,7 +43,8 @@ header #colors span.selected
     width: 16px;
     height: 16px;
     margin-right: 12px;
-    -moz-border-radius: 8px 8px 8px 8px;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
 }
 
 header #colors span.green
@@ -72,6 +74,7 @@ header form
 
 header #search
 {
+    border-radius: 3px 0px 0px 3px;
     -moz-border-radius: 3px 0px 0px 3px;
     border: 1px solid #333;
     padding: 3px;
@@ -79,6 +82,7 @@ header #search
 }
 header #submit
 {
+    border-radius: 0px 3px 3px 0px;
     -moz-border-radius: 0px 3px 3px 0px;
     border: 1px solid #333;
     padding: 2px;
@@ -101,6 +105,7 @@ nav#tabs a
 {
     display: inline-block;
     cursor: pointer;
+    border-radius: 6px 6px 0px 0px;
     -moz-border-radius: 6px 6px 0px 0px;
     color: #FFF;
     padding: 8px;
@@ -146,8 +151,8 @@ nav#buttons a
     color: #FFF;
     padding: 5px;
     margin-right: 10px;
+    border-radius: 3px;
     -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
 }
 
 nav#buttons a .delete
@@ -169,24 +174,25 @@ nav#buttons a.selected
 {
     position: relative;
     display: inline-block;
-    margin: 10px;
     border: 1px solid #CCC;
-    background-color: #FFF;
-    padding: 4px;
-    width: 80px;
     font-size: 11px;
-    height: 60px;
+    height: 72px;
     overflow: hidden;
     cursor: pointer;
-    width: 90%;
+    width: 100%;
+    border-radius: 3px 0px 0px 3px;
     -moz-border-radius: 3px 0px 0px 3px;
     text-align: left;
     border: none;
     font-size: 14px;
     margin-bottom: 6px;
     margin-right: 0px;
-    padding: 6px;
-    background-color: rgba(50, 50, 50, 0.5);
+    background-color: rgba(50, 50, 50, 0.8);
+}
+
+.video_item img
+{
+    margin: 6px;
 }
 
 .video_item .title
@@ -195,19 +201,34 @@ nav#buttons a.selected
     text-transform: lowercase;
     color: #FFF;
     padding: 2px;
-    left: 100px;
+    left: 94px;
     right: 4px;
-    top: 6px;
-    max-height: 30px;
+    top: 4px;
+    max-height: 36px;
+    overflow: hidden;
 }
 .video_item .views
 {
     font-size: 10px;
     position: absolute;
-    color: #555;
+    color: #999;
+    padding: 2px;
+    bottom: 4px;
+    left: 94px;
+}
+.video_item .more
+{
+    display: none;
+    font-size: 10px;
+    position: absolute;
+    color: #999;
     padding: 2px;
     bottom: 4px;
     right: 4px;
+}
+.video_item:hover .more
+{
+    display: block;
 }
 
 
@@ -215,7 +236,6 @@ nav#buttons a.selected
 #player_container
 {
     text-align: center;
-    -moz-border-radius: 8px;
     margin-left: 12px;
     min-height: 450px;
 }

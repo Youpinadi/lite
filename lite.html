@@ -5,6 +5,7 @@
     
     <script type="text/javascript" charset="utf-8" src="http://jqueryjs.googlecode.com/files/jquery-1.3.2.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/swfobject/swfobject.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/cookie.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/lite.js"></script>
     
     <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" title="no title" charset="utf-8">
@@ -17,6 +18,7 @@
             <img src="<%=thumbnail_small_url%>"/>
             <div class="title"><%=title%></div>
             <div class="views"><%=views_total%> views</div>
+            <a href="#/related/<%=video_id%>/1:30" class="more" title="videos related to this video">more</a>
         </div>
     </script>
     <style id="skin">
@@ -29,13 +31,15 @@
     <nav id="tabs">
         <a id="selection" class="selected">Our selection</a>
         <a id="searches">Recent searches</a>
-        <a id="history">History</a>
+        <a id="history">Viewing History</a>
     </nav>
     <div id="colors">
-        <span class="selected" title="change to red" style="background-color: #CE1212"></span>
-        <span title="change to green" style="background-color: #243F17"></span>
-        <span title="change to violet" style="background-color: #EC1F9E"></span>
-        <span title="change to blue" style="background-color: #1D6BBF"></span>
+        <span class="selected" id="red" title="change to red" style="background-color: #CE1212"></span>
+        <span title="change to violet" id="violet" style="background-color: #EC1F9E"></span>
+        <span title="change to blue" id="blue" style="background-color: #1D6BBF"></span>
+        <span title="change to green" id="green" style="background-color: #709B0E"></span>
+        <span title="change to orange" id="orange" style="background-color: #E1A126"></span>
+        <span title="change to dark grey" id="grey" style="background-color: #333"></span>
     </div>
     <form id="search_form">
         <input type="text" value="search" name="search" id="search"/><input type="submit" id="submit"/>
@@ -43,11 +47,11 @@
 
     <nav id="buttons" class="background">
         <div id="nav_selection" class="current_context">
-            <a href="/buzz/1" class="selected" class="context">buzz</a>
-            <a href="/visited-month/hd/tag/trailer/1:30" class="context">hd trailers</a>
-            <a href="/visited-month/user/edbangerrecords/1:30" class="context">music</a>
-            <a href="/visited-week/channel/fun/1:30" class="context">fun</a>
-            <a href="/visited-today/channel/sexy/1:30" class="context">sexy</a>
+            <a href="#/buzz/1" class="selected" class="context">buzz</a>
+            <a href="#/visited-month/hd/tag/trailer/1:30" class="context">hd trailers</a>
+            <a href="#/visited-month/user/edbangerrecords/1:30" class="context">music</a>
+            <a href="#/visited-week/channel/fun/1:30" class="context">fun</a>
+            <a href="#/visited-today/channel/sexy/1:30" class="context">sexy</a>
         </div>
         <div id="nav_searches">no recent search</div>
         <div id="nav_history">no video in your history</div>

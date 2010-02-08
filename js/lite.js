@@ -41,6 +41,7 @@ Lite =
     foregroundColor: '#FFFFFF',
     noColor: 'rgba(255, 255, 255, 0.5)',
     playerDisplayed: false,
+    historyVideos: [],
     displayResults: function(videos)
     {
         $('#results').fadeIn('slow');
@@ -57,7 +58,7 @@ Lite =
             }
         }
         $('#results').html(res);
-        
+
         if ($('embed').size() == 0 && !Lite.playerDisplayed)
         {
             Lite.playerDisplayed = true;
@@ -67,10 +68,12 @@ Lite =
         $('.video_item').click(function(){
            Lite.loadVideoById($(this).attr('id'));
         });
+
+        Lite.initNav();
     },
     search: function()
     {
-        var req = '/search/' + $('#search').val() + '/1:30';
+        var req = '#/search/' + $('#search').val() + '/1:30';
         $('nav#tabs').removeClass('selected');
         $('nav#tabs #searches').addClass('selected');
 
@@ -95,6 +98,7 @@ Lite =
     request: function(req)
     {
         $('#results').fadeOut('fast');
+        req = req.replace('#', '');
         var req = 'http://www.dailymotion.com/json' + req + '?callback=Lite.displayResults&fields=title,views_total,thumbnail_small_url,video_id';
         $('#results').append('<scri' + 'pt src="' + req + '"></scri' + 'pt>');
         Lite.applyColors();
@@ -107,20 +111,19 @@ Lite =
             Lite.goToContext('nav_' + $(this).attr('id'));
             if ($(this).attr('id') == 'history')
             {
-                Lite.request('/user/Youpinadi/1:30');
+                Lite.request($(this).attr('href'));
             }
             Lite.applyColors();
             return false;
         });
 
-        $('nav#buttons a').click(function(){
+        $('nav#buttons a, .video_item a').click(function(){
             $('nav#buttons a.selected').css('color', Lite.foregroundColor);
             $('nav#buttons a').removeClass('selected');
             $(this).addClass('selected');
             Lite.request($(this).attr('href'));
-            return false;
         }).find('.delete').click(function()
-        { 
+        {
             $(this).parent().remove();
             if($('nav#buttons #nav_searches a').size() == 0)
             {
@@ -209,24 +212,55 @@ Lite =
 
         delete (parts[0]);
         for (var i = 1; i <= 3; ++i) {
-            parts[i] = parseInt(parts[i]).toString(16);
+            parts[i] = parseInt(parts[i], 10).toString(16);
             if (parts[i].length == 1) parts[i] = '0' + parts[i];
         }
         return parts.join(''); // "0070ff"
     },
     loadVideoById: function(videoId)
     {
+        if (Lite.historyVideos.indexOf(videoId) == -1)
+        {
+            Lite.historyVideos.unshift(videoId);
+            $('#history').attr('href', '#/vids/' + Lite.historyVideos.join('+'));
+            $('#nav_history').html(Lite.historyVideos.length + ' videos in your history | clear history');
+        }
+        else
+        {
+            $('#nav_history').html('Your viewing history is empty');
+        }
         var col = Lite.rgbToHexa(Lite.currentColor);
         var cols = 'colors=background:000000;glow:000000;foreground:cccccc;special:' + col +';&autoPlay=1';
         var flashvars = {};
         var params = {'allowscriptaccess': 'always'};
         var attributes = {};
-        swfobject.embedSWF("http://www.dailymotion.com/swf/" + videoId + '?' + cols, "video_player", "300", "120", "9.0.0","expressInstall.swf", flashvars, params, attributes);
+        swfobject.embedSWF("http://betaplayer.dailymotion.com/swf/" + videoId + '?' + cols, "video_player", "300", "120", "9.0.0","expressInstall.swf", flashvars, params, attributes);
     },
     switchColors: function(event)
     {
-        var el = $(event.target);
+        if (event.keyCode)
+        {
+            var index = event.keyCode - 49;
+            if (index >= 0 && index < $('#colors span').size())
+            {
+                var el = $($('#colors span').get(index));
+            }
+            else
+            {
+                return;
+            }
+        }
+        else
+        {
+            var el = $(event.target);
+        }
+
         Lite.currentColor = el.css('backgroundColor');
+
+        var date = new Date();
+        date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
+        $.cookie('lastSelectedColor', el.attr('id'), { path: '/', expires: date });
+
         $('#colors span').removeClass('selected');
         $(el).addClass('selected');
         $('.background').css('backgroundColor', Lite.currentColor);
@@ -235,9 +269,39 @@ Lite =
     initialize: function()
     {
         $(document).ready(function () {
+            //init color nav
+            if ($.cookie('lastSelectedColor'))
+            {
+                $('#colors span').removeClass('selected');
+                $('#' + $.cookie('lastSelectedColor')).addClass('selected');
+            }
+            else
+            {
+                 $('#colors span:first').addClass('selected');
+            }
             Lite.currentColor = $('#colors span.selected').css('backgroundColor');
+
             Lite.applyColors();
             $('#colors span').click(Lite.switchColors);
+
+            $('#colors').hide();
+
+            $('header').hover
+            (
+                function()
+                {
+                    $('#colors').fadeIn();
+                },
+                function()
+                {
+                    $('#colors').fadeOut();
+                }
+            );
+
+            $(document).keyup(function(event) {
+                Lite.switchColors(event);
+            });
+
 
             $('#search_form').submit(function(){
                 $('nav a').removeClass('selected');
