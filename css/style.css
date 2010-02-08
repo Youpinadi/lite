@@ -19,11 +19,16 @@ header
     margin-bottom: 12px;
     text-align: left;
     font-size: 12px;
+    background-image: url(../img/logo.png);
+    background-repeat: no-repeat;
+    background-position: 12px 12px;
 }
 
 header #colors
 {
-    display: inline-block;
+    position: absolute;
+    top: 12px;
+    left: 400px;
 }
 
 header #colors span
@@ -97,13 +102,14 @@ nav a
 
 nav#tabs
 {
-    display: inline-block;
+    float: left;
+    width: 100%;
     padding: 6px 6px 0px 6px;
 }
 
 nav#tabs a
 {
-    display: inline-block;
+    float: right;
     cursor: pointer;
     border-radius: 6px 6px 0px 0px;
     -moz-border-radius: 6px 6px 0px 0px;
@@ -118,23 +124,28 @@ nav#tabs a.selected
     color: #FFF;
 }
 
-
-nav#buttons
+#sub
 {
-    display: block;
-    position: relative;
     height: 38px;
     overflow: hidden;
 }
-nav#buttons div
+
+
+nav#buttons
+{
+    float: right;
+    width: 50%;
+    position: relative;
+    height: 38px;
+}
+nav#buttons nav
 {
     position: absolute;
     top: -38px;
-    left: 0px;
+    right: 0px;
     padding: 6px;
     height: 26px;
     padding-left: 8px;
-    display: inline-block;
 }
 
 nav#buttons .current_context
@@ -145,7 +156,7 @@ nav#buttons .current_context
 
 nav#buttons a
 {
-    display: inline-block;
+    float: right;
     cursor: pointer;
     background-color: rgba(255, 255, 255, 0.5);
     color: #FFF;
