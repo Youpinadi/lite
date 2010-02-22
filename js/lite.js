@@ -42,13 +42,16 @@ Lite =
     noColor: 'rgba(255, 255, 255, 0.5)',
     playerDisplayed: false,
     historyVideos: [],
+    lastRequest: null,
+    cache: {},
     displayResults: function(videos)
     {
+        log('result received!');
         $('#results').fadeIn('slow');
-        var res = '';
+        var res = '<div class="result" id="' + Lite.getCacheKeyForRequest(Lite.lastRequest) +'">';
         if (videos.length == 0)
         {
-            res = 'No videos found';
+            res += 'No videos found';
         }
         else
         {
@@ -57,7 +60,9 @@ Lite =
                 res += tmpl("video_tmpl", videos[i]);
             }
         }
-        $('#results').html(res);
+        res += '</div>';
+        
+        $('#results').append(res);
 
         if ($('embed').size() == 0 && !Lite.playerDisplayed)
         {
@@ -68,8 +73,6 @@ Lite =
         $('.video_item').click(function(){
            Lite.loadVideoById($(this).attr('id'));
         });
-
-        Lite.initNav();
         Lite.applyColors();
     },
     search: function()
@@ -87,7 +90,6 @@ Lite =
             Lite.request(req);
             $('nav#buttons #nav_searches').append('<a href="' + req + '" class="search selected">search: ' + $('#search').val() + '<span class="delete"></span></a>');
             $('nav#buttons a:last').hide().fadeIn().addClass('selected');
-            Lite.initNav();
         }
         else
         {
@@ -96,42 +98,32 @@ Lite =
         Lite.goToContext('nav_searches');
         Lite.applyColors();
     },
+    getCacheKeyForRequest: function(req)
+    {
+        return req.replace(/\//g, '_').replace(/:/g, '_');
+    },
     request: function(req)
     {
-        $('#results').fadeOut('fast');
         req = req.replace('#', '');
-        var req = 'http://www.dailymotion.com/json' + req + '?callback=Lite.displayResults&fields=title,views_total,thumbnail_small_url,video_id';
-        $('#results').append('<scri' + 'pt src="' + req + '"></scri' + 'pt>');
-        Lite.applyColors();
-    },
-    initNav: function()
-    {
-        $('nav#tabs a').click(function(){
-            $('nav#tabs a').removeClass('selected');
-            $(this).addClass('selected');
-            Lite.goToContext('nav_' + $(this).attr('id'));
-            if ($(this).attr('id') == 'history')
-            {
-                Lite.request($(this).attr('href'));
-            }
-            Lite.applyColors();
-            return false;
-        });
+        log('check if #' + Lite.getCacheKeyForRequest(req) + ' exists...');
 
-        $('nav#buttons a, .video_item a').click(function(){
-            $('nav#buttons a.selected').css('color', Lite.foregroundColor);
-            $('nav#buttons a').removeClass('selected');
-            $(this).addClass('selected');
-            Lite.request($(this).attr('href'));
-        }).find('.delete').click(function()
+        $('#results .result').hide();
+
+        Lite.applyColors();
+        var resultContainer = $('#' + Lite.getCacheKeyForRequest(req)); 
+        if (resultContainer.size() == 1)
         {
-            $(this).parent().remove();
-            if($('nav#buttons #nav_searches a').size() == 0)
-            {
-                $('nav#buttons #nav_searches').html('no recent search');
-            }
-            return false;
-        });
+            log('in cache!');
+            $('#' + Lite.getCacheKeyForRequest(req)).show();
+            return;
+        }
+        log('#' + Lite.getCacheKeyForRequest(req) + ' doesn\'t exists, make request!');
+        
+        $('#results').fadeOut('fast');
+        Lite.lastRequest = req;
+        
+        var req = 'http://www.dailymotion.com/json' + req + '?callback=Lite.displayResults&fields=title,views_total,thumbnail_small_url,video_id';
+        $.getScript(req);
     },
     applyColors: function()
     {
@@ -223,6 +215,9 @@ Lite =
     },
     loadVideoById: function(videoId)
     {
+        $('.video_item.selected').removeClass('selected');
+        $('#' + videoId).addClass('selected');
+        
         if (Lite.historyVideos.indexOf(videoId) == -1)
         {
             Lite.historyVideos.unshift(videoId);
@@ -235,11 +230,11 @@ Lite =
             $('#nav_history').html('Your viewing history is empty');
         }
         var col = Lite.rgbToHexa(Lite.currentColor);
-        var cols = 'colors=background:000000;glow:000000;foreground:cccccc;special:' + col +';&autoPlay=1';
+        var parameters = 'background=000000&foreground=cccccc&highlight=' + col +'&autoPlay=1';
         var flashvars = {};
         var params = {'allowscriptaccess': 'always'};
         var attributes = {};
-        swfobject.embedSWF("http://betaplayer.dailymotion.com/swf/" + videoId + '?' + cols, "video_player", "300", "120", "9.0.0","expressInstall.swf", flashvars, params, attributes);
+        swfobject.embedSWF("http://betaplayer.dailymotion.com/swf/" + videoId + '?' + parameters, "video_player", "100%", "100%", "9.0.0","expressInstall.swf", flashvars, params, attributes);
     },
     switchColors: function(event)
     {
@@ -273,6 +268,39 @@ Lite =
             $('.background').css('backgroundColor', Lite.currentColor);
             Lite.applyColors();
         }
+    },
+    initNav: function()
+    {
+        //tabs
+        $('nav#tabs a').click(function(){
+            $('nav#tabs a').removeClass('selected');
+            $(this).addClass('selected');
+            Lite.goToContext('nav_' + $(this).attr('id'));
+            if ($(this).attr('id') == 'history')
+            {
+                Lite.request($(this).attr('href'));
+            }
+            Lite.applyColors();
+            return false;
+        });
+        
+        //buttons and future buttons
+        $('nav#buttons a, .video_item a').live('click', function(){
+            $('nav#buttons a.selected').css('color', Lite.foregroundColor);
+            $('nav#buttons a').removeClass('selected');
+            $(this).addClass('selected');
+            Lite.request($(this).attr('href'));
+        });
+
+        $('nav#buttons .delete').live('click', function()
+        {
+            $(this).parent().remove();
+            if($('nav#buttons #nav_searches a').size() == 0)
+            {
+                $('nav#buttons #nav_searches').html('no recent search');
+            }
+            return false;
+        });
     },
     initialize: function()
     {
@@ -317,7 +345,10 @@ Lite =
             });
             Lite.initNav();
             Lite.request('/buzz/1:30');
-            Lite.applyColors();
+            
+            $('#password, #login').click(function(){
+                $(this).attr('value', '');
+            })
         });
     }
 };
@@ -326,6 +357,17 @@ Lite.initialize();
 
 function onDailymotionPlayerReady(id)
 {
-    console.log('OK');
+    log('OK');
     Lite.player = $(id);
+};
+
+
+function log(msg)
+{
+    try
+    {
+        console.log(msg);
+    }
+    catch(e)
+    {}
 };

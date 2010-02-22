@@ -21,7 +21,7 @@ header
     font-size: 12px;
     background-image: url(../img/logo.png);
     background-repeat: no-repeat;
-    background-position: 12px 12px;
+    background-position: 12px 10px;
 }
 
 header #colors
@@ -69,7 +69,7 @@ header #colors span.violet
 
 
 
-header form
+header #search_form
 {
     float: right;
     margin-right: 6px;
@@ -77,8 +77,18 @@ header form
 }
 
 
-header #search
+header form input
 {
+    border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    padding: 3px;
+    border-right: none;
+}
+
+
+header #search
+{    
     border-radius: 3px 0px 0px 3px;
     -moz-border-radius: 3px 0px 0px 3px;
     border: 1px solid rgba(0, 0, 0, 0.5);
@@ -153,6 +163,7 @@ nav#buttons nav
 nav#buttons .current_context
 {
     top: 0px;
+    line-height: 26px;
 }
 
 
@@ -163,6 +174,7 @@ nav#buttons a
     background-color: rgba(255, 255, 255, 0.5);
     color: #FFF;
     padding: 5px;
+    line-height: 14px;
     margin-right: 10px;
     border-radius: 3px;
     -moz-border-radius: 3px;
@@ -194,13 +206,19 @@ nav#buttons a.selected
     overflow: hidden;
     cursor: pointer;
     border-radius: 3px;
-    -moz-border-radius: 3px;
+    -moz-border-radius: 8px;
     text-align: left;
     border: none;
     font-size: 14px;
-    margin-bottom: 6px;
+    margin-top: 6px;
     border: 1px solid rgba(200, 200, 200, 0.15);
     background-color: rgba(122, 122, 122, 0.2);
+}
+
+.video_item.selected
+{
+    -moz-box-shadow: 0pt 0pt 16px rgba(255, 255, 255, 0.8);
+    -webkit-box-shadow: 0pt 0pt 16px rgba(255, 255, 255, 0.8);
 }
 
 .video_item img
@@ -212,6 +230,7 @@ nav#buttons a.selected
 {
     position: absolute;
     text-transform: lowercase;
+    font-weight: bold;
     color: #FFF;
     padding: 2px;
     left: 94px;
@@ -264,10 +283,9 @@ nav#buttons a.selected
 {
     position: fixed;
     top: 100px;
-    width: 72%;
+    width: 75%;
     float: left;
     margin-right: 12px;
-    background-color: rgba(0, 0, 0, 0.5);
 }
 
 #video_player
@@ -279,6 +297,6 @@ nav#buttons a.selected
 
 #results_container
 {
-    margin-top: 80px;
+    margin-top: 77px;
     float: right;
 }

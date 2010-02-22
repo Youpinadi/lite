@@ -21,9 +21,6 @@
             <a href="#/related/<%=video_id%>/1:30" class="more" title="videos related to this video">more like this</a>
         </div>
     </script>
-    <style id="skin">
-        
-    </style>
 </head>
 <body>
 
@@ -31,6 +28,7 @@
     <nav id="tabs">
         <a id="searches">Recent searches</a>
         <a id="history">Viewing History</a>
+        <a id="my_stuff">My stuff</a>
         <a id="selection" class="selected">Our selection</a>
     </nav>
     <div id="colors">
@@ -47,7 +45,7 @@
         </form>
         <nav id="buttons">
             <nav id="nav_selection" class="current_context">
-                <a href="#/buzz/1" class="selected" class="context">Buzz</a>
+                <a href="#/buzz/1:30" class="selected" class="context">Buzz</a>
                 <a href="#/visited-month/hd/tag/trailer/1:30" class="context">HD Trailers</a>
                 <a href="#/visited-month/user/edbangerrecords/1:30" class="context">Music</a>
                 <a href="#/visited-week/channel/fun/1:30" class="context">Fun</a>
@@ -55,6 +53,12 @@
             </nav>
             <nav id="nav_searches">no recent search</nav>
             <nav id="nav_history">no video in your history</nav>
+            <nav id="nav_my_stuff">
+                <form action="http://www.dailymotion.com/login">
+                    <input type="text" name="username" value="login" id="login"/>
+                    <input type="password" name="password" value="password" id="password"/>
+                </form>
+            </nav>
         </nav>
     </div>
 </header>
